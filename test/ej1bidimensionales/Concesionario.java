@@ -80,17 +80,27 @@ public class Concesionario {
     public void informe(){
         float total;
         float beneficio;
-        cabecera();
+        int fila;
+        int columna;
+        int pagina=1;
+        cabecera(pagina);
+        int linea=3;
         for(int nmodelo=0;nmodelo<modelos.length;nmodelo++){
             System.out.print(modelos[nmodelo].getNombre());
             System.out.print("\t\t"+modelos[nmodelo].ventasTrimestre(0));
             System.out.print("\t\t"+modelos[nmodelo].ventasTrimestre(3));
             total=modelos[nmodelo].ventasTrimestre(0)+modelos[nmodelo].ventasTrimestre(3);
             System.out.print(total);
-            int fila=modelos[nmodelo].getTipo();
-            int columna=buscar(total);
+            fila=modelos[nmodelo].getTipo();
+            columna=buscar(total);
             beneficio=beneficios[fila][columna]*total;
             System.out.println("\t"+beneficio);
+            linea++;
+            if(linea==5){
+                pagina++;
+                cabecera(pagina);
+                linea=3;
+            }
         }
     }
     private int buscar(float importe){
@@ -114,10 +124,10 @@ public class Concesionario {
         }*/
         return pos;
     }
-    private void cabecera(){
+    private void cabecera(int pagina){
         Fecha fhoy= new Fecha();
         System.out.println("Informe de ventas");
-        System.out.println("Fecha: "+fhoy.fechaCompletaLetra());
+        System.out.println("Fecha: "+fhoy.fechaCompletaLetra()+"Pagina"+pagina);
         System.out.println("Modelo \t Importe 1ºT \t Importe 2ºT \t Total \t Beneficio");
     }
 }
